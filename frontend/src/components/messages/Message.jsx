@@ -1,18 +1,24 @@
+import { useAuthContext } from "../../context/AuthContex"
+import { extractTime } from "../../utils/TimeandDate"
+import useGetMessage from "../../hooks/useGetMessages"
+import useConversation from "../../zustand/useConversation"
 
-const Message = () => {
+
+const Message = ({ messages }) => {
+    const { authUser } = useAuthContext();
+    const fromMe = messages.senderId === authUser._id
+    const chatClassName = fromMe ? 'chat-end' : 'chat-start';
+    const formattedTime = extractTime(messages.createdAt);
+    const bubbleBgColor = fromMe ? 'bg-opacity-80 bg-black text-white' : ' bg-opacity-80 bg-white text-black'
     return (
-        <div className="chat chat-start">
-            <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                    <img
-                        alt="Tailwind CSS chat bubble component"
-                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        <div>
+            <div className={`chat ${chatClassName}`}>
+                <div className={`chat-bubble ${bubbleBgColor} text-black  max-w-[75%] break-words whitespace-pre-wrap`}>
+                    {messages.messages}
+                    <time className=" pl-2 chat-footer text-[10px] text-white gap-1 items-center opacity-50 ">{formattedTime}</time>
                 </div>
             </div>
-            <div className={'chat-bubble text-white bg-green-700'}>hi! what is up</div>
-            <time className="chat-footer text-xs flex gap-1 items-center opacity-50">12:45</time>
         </div>
     )
 }
-
 export default Message 

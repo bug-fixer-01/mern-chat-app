@@ -1,49 +1,73 @@
-import GenderCheckBox from "./GenderCheckBox"
+import { Link } from "react-router-dom"
+// import GenderCheckBox from "./GenderCheckBox"
+import { useState } from "react"
+import useSignup from "../../hooks/useSignUp"
 
 const Signup = () => {
+
+  const [inputs, setInputs] = useState({
+    fullname: '',
+    username: '',
+    password: '',
+  })
+
+  const { loading, Signup } = useSignup();
+
+  // const handleCheckboxChange = (gender) => {
+  //   setInputs({ ...inputs, gender })
+  // }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await Signup(inputs)
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg backdrop-filter bg-clip-padding backdrop-blur-xl bg-opacity-0">
-        <h1 className="text-3xl font-semibold text-center text-blue-50">SignUp
-          <span className="text-green-500">Chatapp</span>
-        </h1>
+    <div className="flex flex-col items-center justify-center min-w-96 mx-auto ">
+      <div className="flex flex-row w-auto rounded-3xl bg-white bg-clip-padding overflow-hidden">
 
-        <form>
-          <div>
-            <label className='label p-2'>
-              <span className="text-base label-text">Full Name</span>
-            </label>
-            <input type="text" placeholder='prayash singh' className="input input-bordered w-full h-10" />
+        <form onSubmit={handleSubmit}>
+          <div className="w-[16rem] sm:w-[19rem] mx-8 my-6">
+            <h2 className="text-3xl font-bold text-center pt-3 text-black">SignUp
+            </h2>
+
+            <span className="flex py-4 text-black text-sm font-medium text-center">Hey,Enter your details to start your first conversation.</span>
+
+            <div>
+              <label className="label p-1 pl-2">
+                <span className="text-black font-semibold label-text">Fullname</span>
+              </label>
+              <input type="text" placeholder='Enter Fullname' className="input focus:outline-none bg-white text-slate-900 placeholder-gray-600 input-bordered w-full h-10"
+                value={inputs.fullname}
+                onChange={(e) => setInputs({ ...inputs, fullname: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className="label p-1 pl-2">
+                <span className="text-black font-semibold label-text">Username</span>
+              </label>
+              <input type="text" placeholder='Enter Username' className="input focus:outline-none bg-white text-slate-900 placeholder-gray-600 input-bordered w-full h-10"
+                value={inputs.username}
+                onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
+              />
+            </div>
+            <div>
+              <label className="label p-1 pl-2">
+                <span className="text-black font-semibold label-text">Password</span>
+              </label>
+              <input type="password" placeholder='Enter Password' className="input focus:outline-none bg-white text-slate-900 placeholder-gray-600 input-bordered w-full h-10"
+                value={inputs.password}
+                onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+              />
+            </div>
+
+            <div className="pt-2">
+              <button disabled={loading} className="rounded-lg bg-indigo-600 text-slate-800 font-medium bg-opacity-70 border-none btn-block btn-sm mt-2">SignUp</button>
+            </div>
+            <span className="text-slate-600">Already have an account?</span><Link to='/Login' className='p-2 text-black font-medium hover:underline label-text mt-2 inline-block'>Login</Link>
           </div>
 
-          <div>
-            <label className="label p-2">
-              <span className="text-base label-text">Username</span>
-            </label>
-            <input type="text" placeholder='prayash singh' className="input input-bordered w-full h-10" />
-          </div>
-
-          <div>
-            <label className="label p-2">
-              <span className="text-base label-text">Password</span>
-            </label>
-            <input type="password" placeholder='Enter Password' className="input input-bordered w-full h-10" />
-          </div>
-
-          <div>
-            <label className="label p-2">
-              <span className="text-base label-text">Confirm Password</span>
-            </label>
-            <input type="password" placeholder='Enter Password' className="input input-bordered w-full h-10" />
-          </div>
-
-          <GenderCheckBox />
-
-          <span className="text-base label-text">Already have and account? <a href="#" className='p-2 text-base label-text hover:underline hover:text-green-600 mt-2 inline-block'>Login</a></span>
-
-          <div>
-            <button className="btn btn-block btn-sm mt-2">SignUp</button>
-          </div>
         </form>
       </div>
     </div>

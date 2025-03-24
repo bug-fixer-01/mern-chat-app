@@ -3,11 +3,10 @@ import { FaSearch  } from "react-icons/fa";
 
 const SerachInput = () => {
   return (
-    <form className="flex items-center gap-2">
-       <input type="text" placeholder="Serach..." className="input input-bordered rounded-full" />
-       <button type="submit" className="btn btn-circle bg-green-900 text-white border">
-       <FaSearch />
-       </button>
+    <form className="flex items-center pb-4 outline-none">
+       <input type="text" placeholder="Serach or start a message" className="focus:outline-none input w-full h-11 placeholder-gray-500 text-black bg-gray-400 bg-opacity-30 border-none outline-none rounded-xl">
+      </input>
+      <FaSearch className="relative right-7 cursor-pointer"/>
     </form>
   )
 }

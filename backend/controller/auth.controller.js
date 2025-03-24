@@ -4,12 +4,8 @@ import generateTokenandCookies from "../utils/generateToken.js";
 
 export const signup = async (req,res)=>{
     try{
-        const { fullname, username , password, confirmPassword, gender} = req.body;
+        const { fullname, username , password} = req.body;
 
-        if(password != confirmPassword){
-            return res.status(400).json({error:"password dont match"})
-        }
-        
         const user = await User.findOne({username});
 
         if(user){
@@ -23,7 +19,6 @@ export const signup = async (req,res)=>{
             fullname,
             username,
             password:hashPassword,
-            gender,
         })
 
          generateTokenandCookies(newUser._id,res)
@@ -34,9 +29,7 @@ export const signup = async (req,res)=>{
             _id:newUser._id,
             fullname:newUser.fullname,
             username:newUser.username,
-            gender:newUser.gender,
         })
-
 
     }
     catch(error){
@@ -49,15 +42,24 @@ export const login =async (req,res)=>{
     try{
         const {username,password} = req.body;
         const user = await User.findOne({username})
-        const ispasswordcorrect = await bcrypt.compare(password,user.password )
-
-        if(!user || !ispasswordcorrect){
-           return res.status(404).json({error:"Invalid username or password"})
+        if( user == null){
+            return res.status(404).json({error:"Invalid username"})
         }
-        
-        generateTokenandCookies(user._id,res);
 
-        res.status(201).json({code:"login successful"})
+        const ispasswordcorrect = await bcrypt.compare(password,user.password )
+        // console.log(ispasswordcorrect)
+
+        if(!ispasswordcorrect){
+           return res.status(404).json({error:"Invalid password"})
+        }
+     
+        generateTokenandCookies(user._id,res);
+     
+        res.status(201).json({
+           _id:user._id,
+           Fullname:user.fullname,
+           username:user.username
+        })
 
     }
     catch(error){
