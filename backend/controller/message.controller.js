@@ -1,6 +1,5 @@
 import Message from "../models/message.model.js";
 import Conversation from "../models/conversation.model.js";
-import conversation from "../models/conversation.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
@@ -75,17 +74,23 @@ export const getMessages = async (req, res) => {
 export const getLastMessage = async (req,res)=>{
 
     try{
-        var Conversations = await conversation.find().populate("messages")
-       
-        Conversations = Conversations.map((Convo)=>{
-           const msg =  Convo.messages[Convo.messages.length-1]
-           return msg
-        })
-        console.log(Conversations)
-        // res.status(200).json(Conversation)
-        
-      } catch (error) {
-        // res.status(500).json({ error: "Failed to fetch the last message" });
+       var conversation = await Conversation.find().populate("messages")
+       var lastMessage = {}
+        conversation.map((convo) => {
+        const msg = convo.messages[convo.messages.length - 1];
+        console.log(convo)
+        if(msg.senderId.toString() === req.user._id.toString()){
+            lastMessage[msg.receiverId.toString()] = {"msg":msg.messages, createdAt:msg.createdAt}
+        }
+        else if(msg.receiverId.toString() === req.user._id.toString()){
+            lastMessage[msg.senderId.toString()] = {"msg":msg.messages, createAt: msg.createdAt}
+        }      
+      })
+       console.log(lastMessage)
+       res.status(200).json(lastMessage)
+            
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch the last message" });
         console.log(error)
       }
       
