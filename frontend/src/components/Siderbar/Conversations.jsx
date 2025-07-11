@@ -15,11 +15,11 @@ const Conversations = ({ filter }) => {
       return conversation.username.toLowerCase().startsWith(filter.toLowerCase())
     })
     setFilteredConversations(filtered);
-
+    
   }, [conversations, filter])
 
   return (
-    <div className="py-6 gap-4 flex flex-col overflow-auto ">
+    <div className="py-6 gap-4 flex flex-col overflow-auto">
 
       {filteredConversations.map((conversation, idx) => (
         <Conversation

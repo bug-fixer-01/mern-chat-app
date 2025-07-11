@@ -4,10 +4,11 @@
 
 body {
     min-height: fit-content;
-    background: url("bg2.jpg");
-    /* background: rgb(30, 29, 29); */
+    /* background: url("bg2.jpg"); */
+    background: rgb(198, 193, 224);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+
 }

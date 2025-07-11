@@ -18,13 +18,12 @@ const useLogin = () => {
                 method: "POST",
                 headers: { "content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
-                credentials: "include"
             })
 
             const data = await res.json()
             console.log(data)
-            if (data.error) {
-                toast.error(data.error)
+            if (res.status != 201) {
+                console.log(data.error)
             }
             else {
                 localStorage.setItem("chat-user", JSON.stringify(data))
@@ -33,7 +32,8 @@ const useLogin = () => {
             }
         }
         catch (error) {
-            toast.error(error.message)
+            // toast.error(error.message)
+            console.log(error)
         }
         finally {
             setLoading(false)

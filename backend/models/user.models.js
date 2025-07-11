@@ -15,10 +15,18 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6
     },
-    // profilepic: {
-    //     type: String,
-    //     default: "",
-    // },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    edited: {
+        type: Boolean,
+    },
+    profileImageUrl:{
+        type:String,
+        default:"null"
+    },
 },{timestamps:true})
 
 

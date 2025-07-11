@@ -2,7 +2,6 @@ import SerachInput from "./SerachInput"
 import Conversations from "./Conversations"
 import useConversation from "../../zustand/useConversation"
 import Logout from "./Logout"
-import { SearchIndex } from "emoji-mart"
 import { useState } from "react"
 
 

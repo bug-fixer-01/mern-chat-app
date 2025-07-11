@@ -1,12 +1,10 @@
-import { useAuthContext } from "../../context/AuthContex";
 import { useSocketContext } from "../../context/SocketContext";
 import { extractTime } from "../../utils/TimeandDate";
 import useConversation from "../../zustand/useConversation"
+import { BsCheck2All } from "react-icons/bs";
 
 const Conversation = ({conversation,lastMessages}) => {
-    // console.log(conversation)
-    const{selectedConversation , setSelectedConversation} = useConversation();  
-    const {authUser} = useAuthContext();
+    const{selectedConversation , setSelectedConversation} = useConversation(); 
     const isSelected = selectedConversation?._id === conversation._id;
     const {onlineUsers} = useSocketContext();
     const isOnline = onlineUsers.includes(conversation._id)
@@ -25,7 +23,7 @@ const Conversation = ({conversation,lastMessages}) => {
             >
             <div className={`avatar ${isOnline ? "online" : ""}`}>
                 <div className="w-12 rounded-full bg-black">
-                    <img src="https://cdn3.iconfinder.com/data/icons/font-awesome-regular-1/512/user-256.png" alt="user avatar" />
+                    <img src={`${conversation.profileImageUrl}`} alt="user avatar" />
                 </div>
             </div>
 
@@ -33,7 +31,7 @@ const Conversation = ({conversation,lastMessages}) => {
                 <div className="flex gap-3 justify-between">
                     <p className=" text-black">{conversation.username}</p>
                 </div>
-                <span className="text-sm text-slate-700">{lastMessage?.msg}</span>
+                <span className="text-sm text-slate-700 flex gap-1 items-center">{lastMessage?.fromMe && <BsCheck2All className="relative top-[2px]"/> } {lastMessage?.msg}</span>
             </div> 
             <span className="text-sm text-cyan-800">{lastMessage?.createdAt && extractTime( lastMessage.createdAt)}</span>
         </div>

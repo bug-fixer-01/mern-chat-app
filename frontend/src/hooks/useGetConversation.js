@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-
+import { useAuthContext } from "../context/AuthContex";
 
 const useGetConversation = () => {
     const[loading,setLoading] = useState(false);
     const[conversations,setConversation] = useState([]);
+    const {setAuthUser} = useAuthContext();
+
 
     useEffect(() =>{
         const getConversation = async ()=> {
@@ -11,7 +13,10 @@ const useGetConversation = () => {
             try {
                 const res = await fetch('/api/Users');
                 const data = await res.json();
-                if(data.error) {
+                if(data.error){
+                    if( res.status === 401){
+                        setAuthUser()
+                    }
                     throw new Error(data.error)
                 }
                 setConversation(data)

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
-import conversation from "../../../backend/models/conversation.model";
 
 const useGetLastMessage = () => {
     const {lastMessages, setLastMessages, messages} = useConversation();

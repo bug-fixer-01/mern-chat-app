@@ -4,7 +4,8 @@ import generateTokenandCookies from "../utils/generateToken.js";
 
 export const signup = async (req,res)=>{
     try{
-        const { fullname, username , password} = req.body;
+        console.log(req.body)
+        const { fullname, username , password, email,profileImageUrl} = req.body;
 
         const user = await User.findOne({username});
 
@@ -19,6 +20,8 @@ export const signup = async (req,res)=>{
             fullname,
             username,
             password:hashPassword,
+            email,
+            profileImageUrl,
         })
 
          generateTokenandCookies(newUser._id,res)
@@ -29,6 +32,7 @@ export const signup = async (req,res)=>{
             _id:newUser._id,
             fullname:newUser.fullname,
             username:newUser.username,
+            profileImageUrl:newUser.profileImageUrl,
         })
 
     }
@@ -41,7 +45,7 @@ export const signup = async (req,res)=>{
 export const login =async (req,res)=>{
     try{
         const {username,password} = req.body;
-        const user = await User.findOne({username})
+        const user = await User.findOne({$or:[{username},{email:username}]})
         if( user == null){
             return res.status(404).json({error:"Invalid username"})
         }
@@ -58,18 +62,19 @@ export const login =async (req,res)=>{
         res.status(201).json({
            _id:user._id,
            Fullname:user.fullname,
-           username:user.username
+           username:user.username,
+           profileImageUrl:User.profileImageUrl,
         })
 
     }
     catch(error){
         console.log("error in login controller", error.message);
-        res.status(500).json({error:"Internal Server Error"})    
+         res.status(500).json({error:"Internal Server Error"})    
     }
     
 }
 
-export const logout = (req,res)=>{
+export const logout = (_,res)=>{
     try{
         res.cookie("jwt","",{maxAge: 0 });
         res.status(200).json({messgae:"Logged out successfully"})

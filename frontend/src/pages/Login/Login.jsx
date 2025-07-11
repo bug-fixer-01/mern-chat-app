@@ -25,7 +25,7 @@ const Login = ({ isLoggedIn }) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label className='label p-2'>
-                            <span className="text-base text-black label-text">Username</span>
+                            <span className="text-base text-black label-text">Username or Email</span>
                         </label>
                         <input type="text" placeholder='Enter Username' className="input focus:outline-none bg-white text-slate-900 placeholder-gray-600 input-bordered w-full h-10"
                             value={inputs.username}
