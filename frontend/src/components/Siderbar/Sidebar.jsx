@@ -3,17 +3,23 @@ import Conversations from "./Conversations"
 import useConversation from "../../zustand/useConversation"
 import Logout from "./Logout"
 import { useState } from "react"
+import { useAuthContext } from "../../context/AuthContex"
 
 
 const Siderbar = () => {
   const { selectedConversation } = useConversation()
   const [ serachInput, setSearchInput ] = useState("")
+  const {user} = useAuthContext();
   return (
-    <div className={`bg-white ${selectedConversation? "hidden" : "flex"} w-[23rem] p-4 sm:flex flex-col`}>
+    <div className={`bg-white ${selectedConversation? "hidden" : "flex"} w-[23rem] h-screen p-4 sm:flex flex-col`}>
         <Logout/>
         <h1 className="text-2xl font-medium text-black pl-1 pb-2">Messages</h1>
         <SerachInput onInput={setSearchInput}/>
-        <Conversations filter={serachInput}/>
+         <div className="h-full flex flex-col flex-wrap items-center justify-center">
+            <h1>Invite People</h1>
+            <h2>and start Your conversation</h2>
+        </div>
+        {/* <Conversations filter={serachInput}/> */}
     </div>
   )
 }

@@ -28,7 +28,7 @@ const MessageContainer = () => {
             <div className="flex items-center gap-2">
               <FaArrowLeft className="block sm:hidden" onClick={() => setSelectedConversation(null)}></FaArrowLeft>
               <div className="w-12 rounded-full bg-black">
-                <img src="user.png" alt="user avatar" />
+                <img src={`${selectedConversation.profileImageUrl}`} alt="user avatar" />
               </div>
               <span className='text-gray-900 font-'>{selectedConversation.fullname}</span>
             </div>
