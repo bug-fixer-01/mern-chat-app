@@ -10,9 +10,7 @@ import { app, server } from "./socket/socket.js"
 
 import connectToMongoDb from "./db/connectToDatabase.js";
 
-
 dotenv.config();
-
 
 const PORT = process.env.PORT || 5000;
 
@@ -39,9 +37,6 @@ app.get("*",(req,res)=>{
     res.sendFile(path.join(__dirname,"frontend", "dist","index.html"));
 })
 
-app.get("/",(req,res)=>{
-    res.send("hello")
-})
 
 server.listen(PORT, () => {
     connectToMongoDb();

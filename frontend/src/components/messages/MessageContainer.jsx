@@ -27,9 +27,14 @@ const MessageContainer = () => {
           <div className='bg-white flex justify-between items-center w-full absolute h-[5rem] backdrop-blur-md z-10 bg-opacity-30 px-4 py-2'>
             <div className="flex items-center gap-2">
               <FaArrowLeft className="block sm:hidden" onClick={() => setSelectedConversation(null)}></FaArrowLeft>
-              <div className="w-12 rounded-full bg-black">
-                <img src={`${selectedConversation.profileImageUrl}`} alt="user avatar" />
+              <div className="w-12 h-12 rounded-full">
+                <img
+                  src={`${selectedConversation.profileImageUrl}`}
+                  alt="user avatar"
+                  className="w-full h-full object-cover rounded-full"
+                />
               </div>
+
               <span className='text-gray-900 font-'>{selectedConversation.fullname}</span>
             </div>
 
