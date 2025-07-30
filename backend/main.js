@@ -21,10 +21,6 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-console.log("✅ Serving /uploads from", path.join(__dirname, "uploads"));
-app.get("/test-image", (req, res) => {
-  res.sendFile(path.join(__dirname, "uploads", "1752204749198-IMG_20241108_120905.jpg"));
-});
 
 app.use("/api/auth", authRoutes)
 app.use("/api/message",MessageRoutes);
