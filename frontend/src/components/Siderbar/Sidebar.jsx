@@ -21,12 +21,12 @@ const Sidebar = () => {
       <SerachInput onInput={setSearchInput} />
       
       {/* Only show this block when loading is false and no conversations */}
-      {!loading && isConversations && (
+      {/* {!loading && isConversations && (
         <div className="h-full flex flex-col flex-wrap items-center justify-center">
           <h1>Invite People</h1>
           <h2>and start Your conversation</h2>
         </div>
-      )}
+      )} */}
 
       {/* Only show conversations when not loading */}
       {!loading && <Conversations filter={searchInput} />}
