@@ -21,7 +21,7 @@ const useLogin = () => {
             })
 
             const data = await res.json()
-            console.log(data)
+            
             if (res.status != 201) {
                 console.log(data.error)
             }
