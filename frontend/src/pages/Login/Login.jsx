@@ -45,7 +45,6 @@ const Login = ({ isLoggedIn }) => {
                     <div className="pt-2">
                         <button disabled={loading} className="rounded-lg bg-indigo-600 text-slate-800 font-medium bg-opacity-70 border-none btn-block btn-sm mt-2">{loading ? <span className='loading loading-spinner mx-auto'></span> : 'Login'}</button>
                     </div>
-                    {loading ? <span className='loading loading-spinner mx-auto'></span> : null}
                     <span className="text-slate-600">Don't have an account?</span><Link to='/SignUp' className='p-2 hover:underline font-medium text-sm text-black mt-2 inline-block'>SignUp</Link>
 
                 </form>
