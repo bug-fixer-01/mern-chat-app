@@ -17,8 +17,6 @@ const Signup = () => {
 
   const { loading, Signup } = useSignup();
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     let profileImgUrl = ""
@@ -89,7 +87,7 @@ const Signup = () => {
             </div>
 
             <div className="pt-2">
-              <button disabled={loading} className="rounded-lg bg-indigo-600 text-slate-800 font-medium bg-opacity-70 border-none btn-block btn-sm mt-2">SignUp</button>
+              <button disabled={loading} className="rounded-lg bg-indigo-600 text-slate-800 font-medium bg-opacity-70 border-none btn-block btn-sm mt-2">{loading ? <span className='loading loading-spinner mx-auto'></span> :'SignUp'}</button>
             </div>
             <span className="text-slate-600">Already have an account?</span><Link to='/Login' className='p-2 text-black font-medium hover:underline label-text mt-2 inline-block'>Login</Link>
           </div>
