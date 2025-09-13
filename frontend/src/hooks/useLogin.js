@@ -24,6 +24,7 @@ const useLogin = () => {
             
             if (res.status != 201) {
                 console.log(data.error)
+                toast.error(data.error)
             }
             else {
                 localStorage.setItem("chat-user", JSON.stringify(data))
